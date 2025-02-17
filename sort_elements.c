@@ -1,112 +1,108 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_three_num.c                                   :+:      :+:    :+:   */
+/*   sort_elements.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oait-h-m <oait-h-m@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:24:13 by oait-h-m          #+#    #+#             */
-/*   Updated: 2025/02/10 15:50:49 by oait-h-m         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:29:44 by oait-h-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_three(t_list **stack_a)
+int	index_of(int value, int *arr, int size)
 {
-	if (*stack_a == NULL || (*stack_a)->next == NULL)
-		return ;
-	int num1, (num2), (num3);
-	num1 = (*stack_a)->value;
-	num2 = (*stack_a)->next->value;
-	num3 = (*stack_a)->next->next->value;
-	if (num1 < num2 && num2 < num3)
-		return ;
-	if (num1 < num2 && num2 > num3 && num3 > num1)
-	{
-		sa(stack_a);
-		ra(stack_a);
-	}
-	else if (num1 > num2 && num1 > num3 && num2 < num3)
-		ra(stack_a);
-	else if (num1 > num2 && num2 > num3 && num3 < num1)
-	{
-		sa(stack_a);
-		rra(stack_a);
-	}
-	else if (num1 > num2 && num2 < num3 && num3 > num1)
-		sa(stack_a);
-	else
-		rra(stack_a);
-}
-
-void sort_four_elements(t_list **stack_a, t_list **stack_b)
-{
-	find_and_pb(stack_a, stack_b);
-	sort_three(stack_a);
-	pa(stack_a, stack_b);
-}
-
-void sort_five_elements(t_list **stack_a, t_list **stack_b)
-{
-	find_and_pb(stack_a, stack_b);
-	find_and_pb(stack_a, stack_b);
-	sort_three(stack_a);
-	pa(stack_a, stack_b);
-	pa(stack_a, stack_b);
-}
-
-void	bubble_sort(int *arr, int size)
-{
-	int i, (j), (tmp);
+	int	i;
 
 	i = 0;
-	while (i < size)	
+	while (i < size)
 	{
-		j = 0;
-		while (j < size - 1)
-		{
-			if (arr[j] > arr[j + 1])
-			{
-				tmp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = tmp;
-			}
-			j++;
-		}
+		if (arr[i] == value)
+			return (i);
 		i++;
 	}
-
+	return (-1);
 }
 
-int *sorted_array(t_list *stack_a)
+int	position_in_stack(int value, t_list *stack)
 {
-	int size, (*arr);
-	t_list *tmp;
+	int	position;
 
-	tmp = stack_a;
-	size = count_list(stack_a);
-	arr = (int *)malloc (sizeof(int) * size);	
-	size = 0;
-	while (tmp)	
+	position = 0;
+	while (stack)
 	{
-		arr[size] = tmp->value;	
-		tmp = tmp->next;
-		size++;
+		if (stack->value == value)
+			return (position);
+		stack = stack->next;
+		position++;
 	}
-	bubble_sort(arr, size);
-	return arr;
+	return (position);
+}
+
+void	push_sorted_numbers(t_list **stack_a, t_list **stack_b, int *arr)
+{
+	int half, (index), (size);
+	size = count_list(*stack_b);
+	while (*stack_b)
+	{
+		index = position_in_stack(arr[size - 1], *stack_b);
+		half = size / 2;
+		if (index <= half)
+		{
+			while ((*stack_b)->value != arr[size - 1])
+				rb(stack_b);
+		}
+		else
+		{
+			while ((*stack_b)->value != arr[size - 1])
+				rrb(stack_b);
+		}
+		pa(stack_a, stack_b);
+		size--;
+	}
+}
+
+void	best_moves(t_list **stack_a, t_list **stack_b, int size, int max)
+{
+	int *arr, (min), (index);
+	arr = sorted_array(*stack_a);
+	min = 0;
+	while (*stack_a)
+	{
+		index = index_of((*stack_a)->value, arr, size);
+		if (index <= min && index != -1)
+		{
+			pb(stack_a, stack_b);
+			rb(stack_b);
+			min++;
+			max++;
+		}
+		else if (index <= max && index != -1)
+		{
+			pb(stack_a, stack_b);
+			if ((*stack_b)->next && (*stack_b)->value < (*stack_b)->next->value)
+				sb(stack_b);
+			min++;
+			max++;
+		}
+		else
+			ra(stack_a);
+	}
+	free(arr);
 }
 
 void	sort_more_numbers(t_list **stack_a, t_list **stack_b)
 {
-	int min, (max) , (size);	
-
-	int *arr = sorted_array(*stack_a);	
-	while (*stack_a)
-	{
-
-	}
-
-
+	int min, (max), (size), (*arr), (index);
+	arr = sorted_array(*stack_a);
+	size = count_list(*stack_a);
+	if (size > 100)
+		max = size / 14;
+	else
+		max = size / 6;
+	best_moves(stack_a, stack_b, size, max);
+	push_sorted_numbers(stack_a, stack_b, arr);
+	free(arr);
 }
