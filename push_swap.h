@@ -52,8 +52,13 @@ void				sort_three(t_list **stack_a);
 void				sort_four_elements(t_list **stack_a, t_list **stack_b);
 void				sort_five_elements(t_list **stack_a, t_list **stack_b);
 void				find_and_pb(t_list **stack_a, t_list **stack_b);
+void				bubble_sort(int *arr, int size);
 int					check_error(char **av);
 int					repetetion(t_list *a, int nbr);
 int					count_list(t_list *head);
+int					*sorted_array(t_list *stack_a);
+int					index_of(int value, int *arr, int size);
+int					position_in_stack(int value, t_list *stack);
+void				sort_more_numbers(t_list **stack_a, t_list **stack_b);
 
 #endif
