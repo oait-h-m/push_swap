@@ -22,7 +22,7 @@ static int	ft_is_positive(char str, int sign)
 	return (sign);
 }
 
-int	check_char(const char *str)
+static int	check_char(const char *str)
 {
 	int	i;
 
@@ -55,7 +55,7 @@ int	ft_atoi(const char *str)
 		result = result * 10 + (str[i] - 48);
 		i++;
 	}
-	if (check || str[i])
+	if (check || (str[i] && str[i] != ' '))
 		return (-1);
 	return (result * sign);
 }
