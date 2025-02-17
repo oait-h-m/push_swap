@@ -22,7 +22,7 @@ static int	ft_strcmp(const char *str1, const char *str2)
 	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }
 
-int	check_argu(char *arg)
+static int	check_argu(char *arg)
 {
 	if (ft_atoi(arg) == -1 && ft_strcmp(arg, "-1"))
 		return (0);
@@ -67,7 +67,10 @@ int	check_error(char **av)
 		s = ft_split(av[i], ' ');
 		j = 0;
 		if (!s[j])
+		{
+			freesp(s);
 			return (0);
+		}
 		while (s[j])
 		{
 			if (!check_argu(s[j]))
