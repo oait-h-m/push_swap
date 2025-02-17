@@ -57,10 +57,9 @@ int	repetetion(t_list *a, int nbr)
 
 int	check_error(char **av)
 {
-	int		i;
 	char	**s;
-	int		j;
 
+	int i, (j);
 	i = 1;
 	while (av[i])
 	{
@@ -73,12 +72,11 @@ int	check_error(char **av)
 		}
 		while (s[j])
 		{
-			if (!check_argu(s[j]))
+			if (!check_argu(s[j++]))
 			{
 				freesp(s);
 				return (0);
 			}
-			j++;
 		}
 		freesp(s);
 		i++;
