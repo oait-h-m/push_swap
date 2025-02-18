@@ -95,7 +95,7 @@ void	best_moves(t_list **stack_a, t_list **stack_b, int size, int max)
 
 void	sort_more_numbers(t_list **stack_a, t_list **stack_b)
 {
-	int min, (max), (size), (*arr), (index);
+	int max, (size), (*arr);
 	arr = sorted_array(*stack_a);
 	size = count_list(*stack_a);
 	if (size > 100)
