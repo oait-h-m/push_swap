@@ -20,8 +20,6 @@ void	sort_three(t_list **stack_a)
 	num1 = (*stack_a)->value;
 	num2 = (*stack_a)->next->value;
 	num3 = (*stack_a)->next->next->value;
-	if (num1 < num2 && num2 < num3)
-		return ;
 	if (num1 < num2 && num2 > num3 && num3 > num1)
 	{
 		sa(stack_a);
@@ -54,4 +52,19 @@ void	sort_five_elements(t_list **stack_a, t_list **stack_b)
 	sort_three(stack_a);
 	pa(stack_a, stack_b);
 	pa(stack_a, stack_b);
+}
+
+int	is_sorted(t_list *stack_a)
+{
+	t_list	*tmp;
+
+	tmp = stack_a;
+	while (tmp)
+	{
+		if (tmp->next && tmp->value > tmp->next->value)
+			return (0);
+		else
+			tmp = tmp->next;
+	}
+	return (1);
 }
