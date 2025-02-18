@@ -49,7 +49,7 @@ int	add_to_stack(char *av, t_list **stack_a)
 	while (s[i])
 	{
 		nbr = ft_atoi(s[i]);
-		if (!repetetion(*stack_a, nbr))
+		if (no_repetetion(*stack_a, nbr))
 			add_to_last(stack_a, nbr);
 		else
 		{
