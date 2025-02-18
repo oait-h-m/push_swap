@@ -42,17 +42,20 @@ void	freesp(char **s)
 	free(s);
 }
 
-int	repetetion(t_list *a, int nbr)
+int	no_repetetion(t_list *stack_a, int nbr)
 {
-	if (a == NULL)
-		return (0);
-	while (a)
+	t_list *tmp;
+
+	tmp = stack_a;
+	if (tmp == NULL)
+		return (1);
+	while (tmp)
 	{
-		if (a->value == nbr)
-			return (1);
-		a = a->next;
+		if (tmp->value == nbr)
+			return (0);
+		tmp = tmp->next;
 	}
-	return (0);
+	return (1);
 }
 
 int	check_error(char **av)
