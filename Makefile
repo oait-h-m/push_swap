@@ -10,27 +10,26 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-FLAGS = -Wall -Wextra -Werror
 NAME = push_swap
-SRC = check_arg.c ft_atoi.c ft_split.c func_helped.c linked_list.c \
-	  main.c push_elements.c reverse_rotate.c rotate.c sort_elements.c \
-	  sort_five_num.c swap.c \
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-OBJS = $(SRC:.c=.o)
 
+SRC = check_arg.c ft_atoi.c ft_split.c func_helped.c linked_list.c main.c push_elements.c reverse_rotate.c rotate.c sort_elements.c sort_five_num.c swap.c 
+
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-%.o: %.c
-	$(CC) $(FLAGS) $(SRC) -o $(NAME)
+.c: .o
+	$(CC) $(CFLAGS) -c $@ -o $^
 
-$(NAME): $(OBJS)
-	ar rcs ${NAME} $(OBJS)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
-	rm -rf *.o
+	rm -rf $(OBJ)
 
-fclean: clean 
+fclean: clean
 
 re: fclean all
