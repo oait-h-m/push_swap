@@ -59,6 +59,7 @@ int					count_list(t_list *head);
 int					*sorted_array(t_list *stack_a);
 int					index_of(int value, int *arr, int size);
 int					position_in_stack(int value, t_list *stack);
+int					is_sorted(t_list *stack_a);
 void				sort_more_numbers(t_list **stack_a, t_list **stack_b);
 
 #endif
