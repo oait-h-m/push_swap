@@ -63,6 +63,26 @@ int	add_to_stack(char *av, t_list **stack_a, t_list **stack_b)
 	return (1);
 }
 
+int	check_all(t_list **stack_a, t_list **stack_b, char **av)
+{
+	int	i;
+
+	if (!check_error(av))
+		return (0);
+	else
+	{
+		i = 1;
+		while (av[i])
+		{
+			if (add_to_stack(av[i], stack_a, stack_b))
+				i++;
+			else
+				return (0);
+		}
+	}
+	return (1);
+}
+
 int	main(int ac, char *av[])
 {
 	t_list	*stack_a;
@@ -71,32 +91,21 @@ int	main(int ac, char *av[])
 
 	stack_a = NULL;
 	stack_b = NULL;
-	if (!check_error(av))
+	if (check_all(&stack_a, &stack_b, av) == 0)
 	{
-		printf("Error\n");
+		write(1, "Error\n", 6);
 		return (0);
 	}
 	else
 	{
-		i = 1;
-		while (av[i])
-		{
-			if (add_to_stack(av[i], &stack_a, &stack_b))
-				i++;
-			else
-			{
-				printf("Error\n");
-				return (0);
-			}
-		}
+		if (count_list(stack_a) == 3)
+			sort_three(&stack_a);
+		else if (count_list(stack_a) == 4)
+			sort_four_elements(&stack_a, &stack_b);
+		else if (count_list(stack_a) == 5)
+			sort_five_elements(&stack_a, &stack_b);
+		else
+			sort_more_numbers(&stack_a, &stack_b);
+		free_nodes(&stack_a);
 	}
-	if (count_list(stack_a) == 3)
-		sort_three(&stack_a);
-	else if (count_list(stack_a) == 4)
-		sort_four_elements(&stack_a, &stack_b);
-	else if (count_list(stack_a) == 5)
-		sort_five_elements(&stack_a, &stack_b);
-	else
-		sort_more_numbers(&stack_a, &stack_b);
-	free_nodes(&stack_a);
 }
