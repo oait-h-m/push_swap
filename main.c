@@ -38,7 +38,7 @@ void	print_stack(t_list *head)
 	printf("\n");
 }
 
-int	add_to_stack(char *av, t_list **stack_a, t_list **stack_b)
+int	add_to_stack(char *av, t_list **stack_a)
 {
 	int		i;
 	char	**s;
@@ -63,7 +63,7 @@ int	add_to_stack(char *av, t_list **stack_a, t_list **stack_b)
 	return (1);
 }
 
-int	check_all(t_list **stack_a, t_list **stack_b, char **av)
+int	check_all(t_list **stack_a, char **av)
 {
 	int	i;
 
@@ -74,7 +74,7 @@ int	check_all(t_list **stack_a, t_list **stack_b, char **av)
 		i = 1;
 		while (av[i])
 		{
-			if (add_to_stack(av[i], stack_a, stack_b))
+			if (add_to_stack(av[i], stack_a))
 				i++;
 			else
 				return (0);
@@ -87,15 +87,15 @@ int	main(int ac, char *av[])
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
-	int		i;
 
 	stack_a = NULL;
 	stack_b = NULL;
-	if (check_all(&stack_a, &stack_b, av) == 0)
-	{
-		write(1, "Error\n", 6);
+	if (ac < 2)
 		return (0);
-	}
+	if (check_all(&stack_a, av) == 0)
+		return (write(1, "Error\n", 6), 0);
+	if (is_sorted(stack_a))
+		return (free_nodes(&stack_a), 0);
 	else
 	{
 		if (count_list(stack_a) == 3)
