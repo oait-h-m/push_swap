@@ -52,14 +52,14 @@ void	push_sorted_numbers(t_list **stack_a, t_list **stack_b, int *arr)
 		if (index <= half)
 		{
 			while ((*stack_b)->value != arr[size - 1])
-				rb(stack_b);
+				rb(stack_b, 1);
 		}
 		else
 		{
 			while ((*stack_b)->value != arr[size - 1])
-				rrb(stack_b);
+				rrb(stack_b, 1);
 		}
-		pa(stack_a, stack_b);
+		pa(stack_a, stack_b, 1);
 		size--;
 	}
 }
@@ -74,21 +74,21 @@ void	best_moves(t_list **stack_a, t_list **stack_b, int size, int max)
 		index = index_of((*stack_a)->value, arr, size);
 		if (index <= min && index != -1)
 		{
-			pb(stack_a, stack_b);
-			rb(stack_b);
+			pb(stack_a, stack_b, 1);
+			rb(stack_b, 1);
 			min++;
 			max++;
 		}
 		else if (index <= max && index != -1)
 		{
-			pb(stack_a, stack_b);
+			pb(stack_a, stack_b, 1);
 			if ((*stack_b)->next && (*stack_b)->value < (*stack_b)->next->value)
-				sb(stack_b);
+				sb(stack_b, 1);
 			min++;
 			max++;
 		}
 		else
-			ra(stack_a);
+			ra(stack_a, 1);
 	}
 	free(arr);
 }
