@@ -61,14 +61,14 @@ void	find_and_pb(t_list **stack_a, t_list **stack_b)
 	if (min->index > 2)
 	{
 		while ((*stack_a)->value != (min)->value)
-			rra(stack_a);
-		pb(stack_a, stack_b);
+			rra(stack_a, 1);
+		pb(stack_a, stack_b, 1);
 	}
 	else if (min->index <= 2)
 	{
 		while ((*stack_a)->value != (min)->value)
-			ra(stack_a);
-		pb(stack_a, stack_b);
+			ra(stack_a, 1);
+		pb(stack_a, stack_b, 1);
 	}
 }
 
