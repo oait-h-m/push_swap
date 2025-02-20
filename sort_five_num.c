@@ -22,27 +22,27 @@ void	sort_three(t_list **stack_a)
 	num3 = (*stack_a)->next->next->value;
 	if (num1 < num2 && num2 > num3 && num3 > num1)
 	{
-		sa(stack_a);
-		ra(stack_a);
+		sa(stack_a, 1);
+		ra(stack_a, 1);
 	}
 	else if (num1 > num2 && num1 > num3 && num2 < num3)
-		ra(stack_a);
+		ra(stack_a, 1);
 	else if (num1 > num2 && num2 > num3 && num3 < num1)
 	{
-		sa(stack_a);
-		rra(stack_a);
+		sa(stack_a, 1);
+		rra(stack_a, 1);
 	}
 	else if (num1 > num2 && num2 < num3 && num3 > num1)
-		sa(stack_a);
+		sa(stack_a, 1);
 	else
-		rra(stack_a);
+		rra(stack_a, 1);
 }
 
 void	sort_four_elements(t_list **stack_a, t_list **stack_b)
 {
 	find_and_pb(stack_a, stack_b);
 	sort_three(stack_a);
-	pa(stack_a, stack_b);
+	pa(stack_a, stack_b, 1);
 }
 
 void	sort_five_elements(t_list **stack_a, t_list **stack_b)
@@ -50,14 +50,16 @@ void	sort_five_elements(t_list **stack_a, t_list **stack_b)
 	find_and_pb(stack_a, stack_b);
 	find_and_pb(stack_a, stack_b);
 	sort_three(stack_a);
-	pa(stack_a, stack_b);
-	pa(stack_a, stack_b);
+	pa(stack_a, stack_b, 1);
+	pa(stack_a, stack_b, 1);
 }
 
 int	is_sorted(t_list *stack_a)
 {
 	t_list	*tmp;
 
+	if (!stack_a)
+		return (0);
 	tmp = stack_a;
 	while (tmp)
 	{
