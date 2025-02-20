@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-t_list	*sa(t_list **stack_a)
+t_list	*sa(t_list **stack_a, int a)
 {
 	t_list	*last;
 
@@ -22,11 +22,12 @@ t_list	*sa(t_list **stack_a)
 	(*stack_a)->next = last->next;
 	last->next = *stack_a;
 	*stack_a = last;
-	write (1, "sa\n", 3);
+	if (a)
+		write (1, "sa\n", 3);
 	return (*stack_a);
 }
 
-t_list	*sb(t_list **stack_b)
+t_list	*sb(t_list **stack_b, int a)
 {
 	t_list	*last;
 
@@ -36,13 +37,15 @@ t_list	*sb(t_list **stack_b)
 	(*stack_b)->next = last->next;
 	last->next = *stack_b;
 	*stack_b = last;
-	write (1, "sb\n", 3);
+	if (a)
+		write (1, "sb\n", 3);
 	return (*stack_b);
 }
 
-void	ss(t_list **stack_a, t_list **stack_b)
+void	ss(t_list **stack_a, t_list **stack_b, int a)
 {
-	sa(stack_a);
-	sb(stack_b);
-	write (1, "ss\n", 3);
+	sa(stack_a, a);
+	sb(stack_b, a);
+	if (a)
+		write (1, "ss\n", 3);
 }
